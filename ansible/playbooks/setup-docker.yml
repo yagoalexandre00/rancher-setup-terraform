@@ -1,0 +1,51 @@
+---
+- name: Installing and setting up Docker CE
+  hosts: rancher
+  become: true
+
+  tasks:
+    - name: Update and upgrade all system packages
+      dnf:
+        name: '*'
+        state: latest
+    - name: Uninstall older docker versions
+      dnf:
+        name:
+          - docker-client
+          - docker-client-latest
+          - docker-common
+          - docker-latest
+          - docker-latest-logrotate
+          - docker-logrotate
+          - docker-engine
+        state: absent
+    - name: Setup Docker repo
+      shell: |
+        dnf install -y yum-utils
+        yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+      # args:
+        # warn: no
+    - name: Install the latest version of Docker CE and containerd
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        # notify: Start and enable docker 
+    - name: Start and enable docker
+      systemd:
+        name: docker
+        state: started
+        enabled: true
+    - name: Add the current user to docker group
+      user:
+        name: vagrant
+        groups: docker
+        append: yes
+    - name: Installing pip3
+      dnf:
+        name: python3-pip
+        state: latest
+    - name: Installing Docker SDK module for python
+      shell:
+        pip3 install docker

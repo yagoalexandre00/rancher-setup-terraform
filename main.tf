@@ -12,7 +12,7 @@ provider "digitalocean" {
 }
 
 
-resource "digitalocean_droplet" "vm_rancher_ubuntu" {
+resource "digitalocean_droplet" "vm_rancher" {
   image    = var.droplet_image
   name     = var.droplet_name
   region   = var.region
@@ -32,5 +32,5 @@ variable "droplet_image" {}
 variable "ssh_key_name" {}
 
 output "droplet_ip" {
-  value = digitalocean_droplet.vm_rancher_ubuntu.ipv4_address
+  value = digitalocean_droplet.vm_rancher.ipv4_address
 }
