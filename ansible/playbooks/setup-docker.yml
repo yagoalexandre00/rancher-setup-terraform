@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-    - name: Update and upgrade all system packages
+    - name: Update all system packages
       dnf:
         name: '*'
         state: latest
