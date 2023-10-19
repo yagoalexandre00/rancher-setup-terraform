@@ -60,6 +60,16 @@ variable "droplet_setup" {}
 variable "droplet_image" {}
 variable "ssh_key_name" {}
 
-output "droplet_ip" {
+output "droplet_ip_rancher" {
   value = digitalocean_droplet.vm_rancher.ipv4_address
+}
+
+output "droplet_ip_k8s_1" {
+  value = digitalocean_droplet.vm_k8s_1.ipv4_address
+}
+output "droplet_ip_k8s_2" {
+  value = digitalocean_droplet.vm_k8s_2.ipv4_address
+}
+output "droplet_ip_k8s_3" {
+  value = digitalocean_droplet.vm_k8s_3.ipv4_address
 }
