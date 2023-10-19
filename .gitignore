@@ -34,5 +34,8 @@ override.tf.json
 terraform.rc
 .terraform.lock.hcl
 
+# ssh-key
+devops-ninja
 
 .vscode/
+.vagrant/
